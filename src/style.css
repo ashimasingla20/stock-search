@@ -25,7 +25,7 @@ header {
 	text-align: center;
 }
 
-.currencyCode {
+/* .currencyCode {
 	background: none;
 	color: rgb(0 0 0 / 50%);
 	border-color: rgb(0 0 0 / 50%);
@@ -46,6 +46,7 @@ header {
 	background: none;
 	border: none;
 	font-family: "Orbitron", sans-serif;
+	font-display: swap;
 	color: rgb(0 0 0 / 50%);
 	text-align: center;
 	max-width: 100%;
@@ -61,11 +62,11 @@ header {
 
 .ExchangeRate-table td:nth-of-type(2) {
 	padding-left: 2.5em;
-}
+} */
 
-section {
+/* section {
 	padding: 1em;
-}
-section + section {
+} */
+/* section + section {
 	border-top: 1px solid rgba(50, 40, 0, 0.3);
-}
+} */

@@ -1,25 +1,34 @@
-import { useSelector } from "react-redux";
-import { getSearchData } from "../store/search";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { SearchBar } from "./SearchBar";
+import { fetchKeyword } from "../store/actions/search";
+import styled from "styled-components";
+import SearchResults from "./SearchResults";
+
+const SectionConatiner = styled.section`
+	max-width: 750px;
+	margin: 0 auto;
+`;
 
 function StockPicker() {
-	const data = useSelector(getSearchData);
+	const dispatch = useDispatch();
+	const [val, setVal] = useState("");
+
+	function onChange(e) {
+		setVal(e.target.value);
+		dispatch(fetchKeyword(e.target.value));
+	}
 	return (
 		<>
 			<section>
 				<h1 className="ExchangeRate-header">Stock Picker</h1>
 			</section>
-			<section>
-				<SearchBar />
-			</section>
-			<section>
-				<ul>
-					{data &&
-						data.map((ele, index) => {
-							return <li>{ele["2. name"]}</li>;
-						})}
-				</ul>
-			</section>
+			<SectionConatiner>
+				<SearchBar val={val} onChange={onChange} />
+			</SectionConatiner>
+			<SectionConatiner>
+				<SearchResults />
+			</SectionConatiner>
 		</>
 	);
 }
