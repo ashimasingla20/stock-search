@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { getSearchData, getKeyword } from "../store/search";
+import NoResultCard from "./NoResultCard";
 
 const ListItemContainer = styled.ul`
 	list-style: none;
@@ -15,11 +16,11 @@ const ListItem = styled.li`
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.14);
 	margin: 0;
 	padding: 20px;
-	transition: background 0.2s;
 	display: flex;
 	justify-content: space-between;
 	text-transform: capitalize;
 `;
+
 const ListCard = ({ ele }) => {
 	return <ListItem>{ele["2. name"]}</ListItem>;
 };
@@ -28,15 +29,18 @@ const SearchResults = () => {
 	const keyword = useSelector(getKeyword);
 	if (!keyword) return "";
 	return (
-		<ListItemContainer>
+		<>
 			{data && data.length ? (
-				data.map((ele, index) => (
-					<ListCard ele={ele} key={`card-${ele["1. symbol"]}`} />
-				))
+				<ListItemContainer>
+					{data.map(ele => (
+						<ListCard ele={ele} key={`card-${ele["1. symbol"]}`} />
+					))}
+				</ListItemContainer>
 			) : (
-				<div>No results found</div>
+				<NoResultCard />
 			)}
-		</ListItemContainer>
+		</>
 	);
 };
+
 export default SearchResults;
