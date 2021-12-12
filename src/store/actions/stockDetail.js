@@ -20,15 +20,14 @@ export const fetchStockDetail = symbol => (dispatch, getStore) => {
 	});
 };
 
-export const fetchStockChart = (symbol, interval) => (dispatch, getStore) => {
+export const fetchStockChart = symbol => (dispatch, getStore) => {
 	dispatch({
 		type: stockDetails.STOCK_CHART_FETCHING,
 		payload: symbol
 	});
 	getData("query", {
 		function: "TIME_SERIES_DAILY_ADJUSTED",
-		symbol,
-		interval: interval
+		symbol
 	}).then(data => {
 		const DAILY_DATA = "Time Series (Daily)";
 		const OPEN = "1. open";

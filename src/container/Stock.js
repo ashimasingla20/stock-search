@@ -24,9 +24,8 @@ const Stock = ({ match: { params } }) => {
 	const dispatch = useDispatch();
 	const MINUTE_MS = 360000;
 	const fetchData = () => {
-		console.log("called");
 		dispatch(fetchStockDetail(symbol));
-		dispatch(fetchStockChart(symbol, "60min"));
+		dispatch(fetchStockChart(symbol));
 	};
 	//commenting as api reches limits soon
 	useEffect(() => {
@@ -42,22 +41,22 @@ const Stock = ({ match: { params } }) => {
 	const isStockDataFetched = useSelector(getIsStockDataFetched);
 
 	if (!isStockDataFetched) return <Loading />;
-	// if (stockData.Note) {
-	// 	return <ErrorCard error={stockData.Note} />;
-	// }
+	if (stockData.Note) {
+		return <ErrorCard error={stockData.Note} />;
+	}
 	return (
 		<>
-			{Object.keys(stockData).length ? (
-				<>
-					<StockDetails>
+			<>
+				<StockDetails>
+					{Object.keys(stockData).length ? (
 						<StockData stockData={stockData} symbol={symbol} />
-						<Graph />
-						<CurrentPrice />
-					</StockDetails>
-				</>
-			) : (
-				<NoResultCard />
-			)}
+					) : (
+						<NoResultCard message="No stock details found in API" />
+					)}
+					<Graph />
+					<CurrentPrice />
+				</StockDetails>
+			</>
 		</>
 	);
 };

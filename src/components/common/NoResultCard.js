@@ -5,8 +5,13 @@ const NoResultCardContent = styled.div`
 	text-align: center;
 	padding: 20px;
 `;
-const NoResultCard = () => {
-	return <NoResultCardContent> OOPS! No Result Found</NoResultCardContent>;
+const NoResultCard = ({ message }) => {
+	return (
+		<NoResultCardContent>
+			{" "}
+			{message ? message : "OOPS! No Result Found"}
+		</NoResultCardContent>
+	);
 };
 
 export default NoResultCard;
