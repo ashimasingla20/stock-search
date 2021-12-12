@@ -30,3 +30,4 @@ export function searchReducer(state = initialState, action) {
 // selectors
 export const getSearchData = state => state.search.data;
 export const getKeyword = state => state.search.keywords;
+export const getIsSearchDataFetched = state => state.search.fetchingData;

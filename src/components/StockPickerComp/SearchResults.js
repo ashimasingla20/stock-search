@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import { getSearchData, getKeyword } from "../../store/search";
+import {
+	getSearchData,
+	getKeyword,
+	getIsSearchDataFetched
+} from "../../store/search";
 import NoResultCard from "../common/NoResultCard";
 import { Link } from "react-router-dom";
 import { colors, fontWeight } from "../../styleConstants";
@@ -46,7 +50,9 @@ const ListCard = ({ ele }) => {
 const SearchResults = () => {
 	const data = useSelector(getSearchData);
 	const keyword = useSelector(getKeyword);
+	const isFetched = useSelector(getIsSearchDataFetched);
 	if (!keyword) return "";
+	if (keyword && !isFetched) return "fetching...";
 	return (
 		<>
 			{data && data.length ? (

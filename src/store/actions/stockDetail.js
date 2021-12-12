@@ -35,16 +35,15 @@ export const fetchStockChart = (symbol, interval) => (dispatch, getStore) => {
 		const OPEN = "1. open";
 		let stockChartXValues = [];
 		let stockChartYValues = [];
-		let count = 0;
-		console.log(data[DAILY_DATA]);
-		// if (!data || !data[DAILY_DATA]) {
-		// 	console.log("in error");
-		// 	dispatch({
-		// 		type: stockDetails.STOCK_CHART_ERROR,
-		// 		error:
-		// 			"'Thank you for using Alpha Vantage! Our standard AP…would like to target a higher API call frequency.'"
-		// 	});
-		// }
+
+		if (!data || !data[DAILY_DATA]) {
+			dispatch({
+				type: stockDetails.STOCK_CHART_ERROR,
+				error:
+					"'Thank you for using Alpha Vantage! Our standard AP…would like to target a higher API call frequency.'"
+			});
+			return;
+		}
 		let keys = Object.keys(data[DAILY_DATA]);
 		console.log(data[DAILY_DATA][keys[0]]);
 		dispatch({
@@ -54,7 +53,6 @@ export const fetchStockChart = (symbol, interval) => (dispatch, getStore) => {
 		for (let key in data[DAILY_DATA]) {
 			stockChartXValues.push(key);
 			stockChartYValues.push(data[DAILY_DATA][key][OPEN]);
-			count++;
 		}
 		let dataObj = {
 			x: stockChartXValues,
