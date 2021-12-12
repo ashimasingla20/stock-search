@@ -1,6 +1,6 @@
-import { SearchBar } from "../components/SearchBar";
+import { SearchBar } from "../components/StockPickerComp/SearchBar";
 import styled from "styled-components";
-import SearchResults from "../components/SearchResults";
+import SearchResults from "../components/StockPickerComp/SearchResults";
 
 const SectionConatiner = styled.section`
 	max-width: 750px;

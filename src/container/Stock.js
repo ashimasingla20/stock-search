@@ -10,6 +10,8 @@ import styled from "styled-components";
 import NoResultCard from "../components/common/NoResultCard";
 import { ErrorCard } from "../components/common/ErrorCard";
 import Loading from "../components/common/Loader";
+import Graph from "../components/Stock/Graph";
+import StockData from "../components/Stock/StockData";
 
 const StockDetails = styled.div`
 	margin: 0 auto;
@@ -17,89 +19,39 @@ const StockDetails = styled.div`
 `;
 
 const Stock = ({ match: { params } }) => {
-	console.log(params);
 	const { symbol } = params;
 	const dispatch = useDispatch();
-
-	useEffect(() => {
+	const MINUTE_MS = 360000;
+	const fetchData = () => {
+		console.log("called");
 		dispatch(fetchStockDetail(symbol));
-		dispatch(fetchStockChart(symbol, "20min"));
+		dispatch(fetchStockChart(symbol, "60min"));
+	};
+	useEffect(() => {
+		fetchData();
+		const timerId = setInterval(() => fetchData, MINUTE_MS);
 		return () => {
 			dispatch(resetDetailsData());
+			clearInterval(timerId);
 		};
 	}, []);
+	setInterval(fetchData, MINUTE_MS);
 	const stockData = useSelector(getStockData);
 	const isStockDataFetched = useSelector(getIsStockDataFetched);
-	// console.log(isStockDataFetched);
-	// return <Loading />;
+
 	if (!isStockDataFetched) return <Loading />;
-	console.log(stockData);
-	console.log();
 	if (stockData.Note) {
 		return <ErrorCard error={stockData.Note} />;
 	}
 	return (
 		<>
 			{Object.keys(stockData).length ? (
-				<StockDetails>
-					<h2>
-						{stockData.Name}({symbol.toUpperCase()})
-					</h2>
-					<div className="stock-detail-basic">
-						{stockData.Sector} | {stockData.Industry} |{" "}
-						{stockData.Country}
-					</div>
-					<p>{stockData && stockData.Description}</p>
-					<table className="stock-detail-table">
-						<tbody>
-							<tr>
-								<td className="colSpan-2" colSpan={2}>
-									Key stats
-								</td>
-							</tr>
-							<tr>
-								<td>Industry: </td>
-								<td>{stockData.Industry}</td>
-							</tr>
-							<tr>
-								<td>PERatio: </td>
-								<td>{stockData.PERatio}</td>
-							</tr>
-							<tr>
-								<td>EBITDA: </td>
-								<td>{stockData.EBITDA}</td>
-							</tr>
-							<tr>
-								<td>Market Cap: </td>
-								<td>{stockData.MarketCapitalization}</td>
-							</tr>
-							<tr>
-								<td>EPS: </td>
-								<td>{stockData.EPS}</td>
-							</tr>
-							<tr>
-								<td>dividend: </td>
-								<td>{stockData.DividendPerShare}</td>
-							</tr>
-							<tr>
-								<td>Shs Outstand: </td>
-								<td>{stockData.SharesOutstanding}</td>
-							</tr>
-							<tr>
-								<td>Shs Float: </td>
-								<td>{stockData.SharesFloat}</td>
-							</tr>
-							<tr>
-								<td>52 Wk High: </td>
-								<td>{stockData["52WeekHigh"]}</td>
-							</tr>
-							<tr>
-								<td>52 Wk Low: </td>
-								<td>{stockData["52WeekLow"]}</td>
-							</tr>
-						</tbody>
-					</table>
-				</StockDetails>
+				<>
+					<StockDetails>
+						<StockData stockData={stockData} symbol={symbol} />
+						<Graph />
+					</StockDetails>
+				</>
 			) : (
 				<NoResultCard />
 			)}

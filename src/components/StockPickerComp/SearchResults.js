@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import { getSearchData, getKeyword } from "../store/search";
-import NoResultCard from "./common/NoResultCard";
+import { getSearchData, getKeyword } from "../../store/search";
+import NoResultCard from "../common/NoResultCard";
 import { Link } from "react-router-dom";
-import { colors, fontWeight } from "../styleConstants";
+import { colors, fontWeight } from "../../styleConstants";
 
 const ListItemContainer = styled.ul`
 	list-style: none;

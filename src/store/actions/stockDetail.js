@@ -31,6 +31,7 @@ export const fetchStockChart = (symbol, interval) => (dispatch, getStore) => {
 		symbol,
 		interval: interval
 	}).then(data => {
+		console.log(data);
 		dispatch({
 			type: stockDetails.STOCK_CHART_FETCHED,
 			payload: { data, symbol }
