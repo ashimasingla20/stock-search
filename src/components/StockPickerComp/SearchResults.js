@@ -8,6 +8,7 @@ import {
 import NoResultCard from "../common/NoResultCard";
 import { Link } from "react-router-dom";
 import { colors, fontWeight } from "../../styleConstants";
+import Loading from "../common/Loader";
 
 const ListItemContainer = styled.ul`
 	list-style: none;
@@ -15,6 +16,7 @@ const ListItemContainer = styled.ul`
 	padding: 0;
 	border-radius: 8px;
 `;
+
 const ListItem = styled.li`
 	background: white;
 	list-style: none;
@@ -26,17 +28,21 @@ const ListItem = styled.li`
 	justify-content: space-between;
 	text-transform: capitalize;
 `;
+
 const Symbols = styled.div`
 	font-weight: ${fontWeight.REGULAR};
 	color: ${colors.BLACK_PRIMARY};
 `;
+
 const Name = styled.div`
 	font-weight: ${fontWeight.LARGE};
 	color: ${colors.DARK_BLACK};
 `;
+
 const StyledLink = styled(Link)`
 	text-decoration: none;
 `;
+
 const ListCard = ({ ele }) => {
 	return (
 		<StyledLink to={`/stock/${ele["1. symbol"]}`}>
@@ -52,7 +58,7 @@ const SearchResults = () => {
 	const keyword = useSelector(getKeyword);
 	const isFetched = useSelector(getIsSearchDataFetched);
 	if (!keyword) return "";
-	if (keyword && !isFetched) return "fetching...";
+	if (keyword && !isFetched) return <Loading />;
 	return (
 		<>
 			{data && data.length ? (
