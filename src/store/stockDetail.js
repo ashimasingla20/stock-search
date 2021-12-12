@@ -32,6 +32,8 @@ export function stockDetailReducer(state = initialState, action) {
 				chartData: action.payload.data
 			};
 		}
+		case stockDetails.STOCK_DATA_RESET:
+			return state;
 		default:
 			return state;
 	}

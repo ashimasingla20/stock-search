@@ -1,42 +1,38 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
 	fetchStockDetail,
-	fetchStockChart
+	fetchStockChart,
+	resetDetailsData
 } from "../store/actions/stockDetail";
 import { getStockData, getIsStockDataFetched } from "../store/stockDetail";
 import styled from "styled-components";
 import NoResultCard from "./NoResultCard";
-// function useQuery() {
-// 	const { search } = useLocation();
+import { ErrorCard } from "./ErrorCard";
 
-// 	return useMemo(() => new URLSearchParams(search), [search]);
-// }
 const StockDetails = styled.div`
 	margin: 0 auto;
 	max-width: 750px;
 `;
+
 const Stock = ({ match: { params } }) => {
 	console.log(params);
 	const { symbol } = params;
 	const dispatch = useDispatch();
-	// const [stockData, setStockData] = useState([]);
+
 	useEffect(() => {
 		dispatch(fetchStockDetail(symbol));
 		dispatch(fetchStockChart(symbol, "20min"));
-		// move to reducer
-		// getData("query", {
-		// 	function: "OVERVIEW",
-		// 	symbol
-		// }).then(data => {
-		// 	setStockData(data);
-		// });
+		return () => {
+			dispatch(resetDetailsData());
+		};
 	}, []);
 	const stockData = useSelector(getStockData);
 	const isStockDataFetched = useSelector(getIsStockDataFetched);
 	console.log(isStockDataFetched);
 	if (!isStockDataFetched) return "fetching....";
 	console.log(stockData);
+	if (stockData.note) return <ErrorCard error={stockData.note} />;
 	return (
 		<>
 			{Object.keys(stockData).length ? (

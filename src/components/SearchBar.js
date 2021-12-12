@@ -1,7 +1,13 @@
-import { useSelector } from "react-redux";
-import { fetchKeyword } from "../store/actions/search";
+import { useState, useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { colors } from "../styleConstants";
+import { useHistory } from "react-router-dom";
+import SearchIcon from "@material-ui/icons/Search";
+import { ErrorCard } from "./ErrorCard";
+import { fetchKeyword } from "../store/actions/search";
+import { getKeyword } from "../store/search";
+import { debounce } from "../utils/debounce";
 
 const Input = styled.input`
 	margin: 0 auto;
@@ -13,20 +19,74 @@ const Input = styled.input`
 	color: ${colors.BLACK_SECONDARY};
 	border: 1px solid ${colors.BLACK_PRIMARY};
 	padding: 20px;
-	/* border-radius: 8px; */
 	box-sizing: border-box;
+	position: relative;
 `;
-export function SearchBar({ onChange, val }) {
-	// const val = useSelector(fetchKeyword);
+
+const SearchButtonContainer = styled.button`
+	position: absolute;
+	right: 0;
+	height: 81px;
+	width: 75px;
+	background: none;
+	border: 0;
+	cursor: pointer;
+`;
+
+const Form = styled.form`
+	max-width: 750px;
+	position: relative;
+`;
+
+export function SearchBar() {
+	let history = useHistory();
+	const keywordVal = useSelector(getKeyword);
+	const [error, setError] = useState("");
+	const [val, setVal] = useState(keywordVal);
+	const dispatch = useDispatch();
+	function fetchResults(value) {
+		console.log("fetch api called");
+		dispatch(fetchKeyword(value));
+	}
+
+	const debouncedFetchResults = useCallback(debounce(fetchResults, 1000), []);
+
+	const onChangeLocal = e => {
+		// console.log(e);
+		if (e.keycode == 13) {
+			e.preventDefault();
+			console.log("enter pressed");
+		}
+		console.log("on change called");
+		setError("");
+		console.log(e.target.value);
+		setVal(e.target.value);
+		debouncedFetchResults(e.target.value);
+	};
+
+	// console.log(debouncedOnChange);
+	const onSubmit = e => {
+		e.preventDefault();
+		const url = `/stock/${val}`;
+		if (val.length) {
+			history.push(url);
+		} else {
+			setError("Please enter a vaild Input");
+		}
+	};
 	return (
-		<form className="ExchangeRate-form">
+		<Form className="ExchangeRate-form" onSubmit={onSubmit}>
 			<Input
 				aria-label="Search term for stock"
 				type="text"
 				value={val}
-				onChange={onChange}
+				onChange={onChangeLocal}
 				autoFocus
 			/>
-		</form>
+			<SearchButtonContainer>
+				<SearchIcon classes={{ root: "search-glass" }} />
+			</SearchButtonContainer>
+			{error && <ErrorCard error={error} />}
+		</Form>
 	);
 }

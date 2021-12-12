@@ -45,7 +45,6 @@ const ListCard = ({ ele }) => {
 };
 const SearchResults = () => {
 	const data = useSelector(getSearchData);
-	console.log(data);
 	const keyword = useSelector(getKeyword);
 	if (!keyword) return "";
 	return (

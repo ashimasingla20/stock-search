@@ -37,3 +37,6 @@ export const fetchStockChart = (symbol, interval) => (dispatch, getStore) => {
 		});
 	});
 };
+export const resetDetailsData = () => ({
+	type: stockDetails.STOCK_DATA_RESET
+});
