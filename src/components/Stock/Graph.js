@@ -16,8 +16,6 @@ const Graph = () => {
 	if (!isChartDetailsFetched) return <Loading />;
 	const xData = chartData["x"];
 	const yData = chartData["y"];
-	console.log(xData);
-	console.log(yData);
 	let arr = [["time", "val"]];
 	for (let i = 0; i < xData.length; i++) {
 		arr.push([xData[i], Number(yData[i])]);

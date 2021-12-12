@@ -10,7 +10,6 @@ const CurrentPriceContainer = styled.div`
 const CurrentPrice = ({}) => {
 	const isFetched = useSelector(getIsChartDataFetched);
 	const currentData = useSelector(getCurrentData);
-	console.log(currentData);
 	if (!isFetched) return <Loading />;
 	const xValues = Object.keys(currentData);
 	const yValues = Object.values(currentData);

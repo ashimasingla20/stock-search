@@ -44,7 +44,6 @@ export function stockDetailReducer(state = initialState, action) {
 		case stockDetails.STOCK_DATA_RESET:
 			return state;
 		case stockDetails.CURRENT_DATA:
-			console.log(action.payload.data);
 			return {
 				...state,
 				currentData: action.payload.data,

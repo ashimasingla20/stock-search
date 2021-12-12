@@ -30,22 +30,19 @@ export const fetchStockChart = (symbol, interval) => (dispatch, getStore) => {
 		symbol,
 		interval: interval
 	}).then(data => {
-		// console.log(data);
 		const DAILY_DATA = "Time Series (Daily)";
 		const OPEN = "1. open";
 		let stockChartXValues = [];
 		let stockChartYValues = [];
-
 		if (!data || !data[DAILY_DATA]) {
 			dispatch({
 				type: stockDetails.STOCK_CHART_ERROR,
-				error:
-					"'Thank you for using Alpha Vantage! Our standard AP…would like to target a higher API call frequency.'"
+				error: "Limit exceeded for API"
 			});
 			return;
 		}
 		let keys = Object.keys(data[DAILY_DATA]);
-		console.log(data[DAILY_DATA][keys[0]]);
+
 		dispatch({
 			type: stockDetails.CURRENT_DATA,
 			payload: { data: data[DAILY_DATA][keys[0]] }
@@ -58,7 +55,7 @@ export const fetchStockChart = (symbol, interval) => (dispatch, getStore) => {
 			x: stockChartXValues,
 			y: stockChartYValues
 		};
-		// console.log(dataObj);
+
 		dispatch({
 			type: stockDetails.STOCK_CHART_FETCHED,
 			payload: { dataObj, symbol }
