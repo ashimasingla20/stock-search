@@ -1,3 +1,45 @@
+const params = [
+	{
+		key: "Industry",
+		tag: "Industry"
+	},
+	{
+		key: "PERatio",
+		tag: "PERatio"
+	},
+	{
+		key: "EBITDA",
+		tag: "EBITDA"
+	},
+	{
+		key: "MarketCapitalization",
+		tag: "Market Cap"
+	},
+	{
+		key: "EPS",
+		tag: "EPS"
+	},
+	{
+		key: "DividendPerShare",
+		tag: "dividend"
+	},
+	{
+		key: "SharesOutstanding",
+		tag: "Shs Outstand"
+	},
+	{
+		key: "SharesFloat",
+		tag: "Shs Float"
+	},
+	{
+		key: "52WeekHigh",
+		tag: "52 Wk High"
+	},
+	{
+		key: "52WeekLow",
+		tag: "52 Wk Low"
+	}
+];
 const StockData = ({ stockData, symbol }) => {
 	return (
 		<>
@@ -15,46 +57,14 @@ const StockData = ({ stockData, symbol }) => {
 							Key stats
 						</td>
 					</tr>
-					<tr>
-						<td>Industry: </td>
-						<td>{stockData.Industry}</td>
-					</tr>
-					<tr>
-						<td>PERatio: </td>
-						<td>{stockData.PERatio}</td>
-					</tr>
-					<tr>
-						<td>EBITDA: </td>
-						<td>{stockData.EBITDA}</td>
-					</tr>
-					<tr>
-						<td>Market Cap: </td>
-						<td>{stockData.MarketCapitalization}</td>
-					</tr>
-					<tr>
-						<td>EPS: </td>
-						<td>{stockData.EPS}</td>
-					</tr>
-					<tr>
-						<td>dividend: </td>
-						<td>{stockData.DividendPerShare}</td>
-					</tr>
-					<tr>
-						<td>Shs Outstand: </td>
-						<td>{stockData.SharesOutstanding}</td>
-					</tr>
-					<tr>
-						<td>Shs Float: </td>
-						<td>{stockData.SharesFloat}</td>
-					</tr>
-					<tr>
-						<td>52 Wk High: </td>
-						<td>{stockData["52WeekHigh"]}</td>
-					</tr>
-					<tr>
-						<td>52 Wk Low: </td>
-						<td>{stockData["52WeekLow"]}</td>
-					</tr>
+					{params.map((ele, index) => {
+						return (
+							<tr>
+								<td>{ele.tag}</td>
+								<td>{stockData[ele.key]}</td>
+							</tr>
+						);
+					})}
 				</tbody>
 			</table>
 		</>

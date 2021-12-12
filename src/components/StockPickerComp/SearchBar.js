@@ -73,6 +73,7 @@ export function SearchBar() {
 	return (
 		<Form className="ExchangeRate-form" onSubmit={onSubmit}>
 			<Input
+				placeholder="Search term for stock"
 				aria-label="Search term for stock"
 				type="text"
 				value={val}

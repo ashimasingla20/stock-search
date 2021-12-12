@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
 	fetchStockDetail,
@@ -13,6 +13,7 @@ import Loading from "../components/common/Loader";
 import Graph from "../components/Stock/Graph";
 import StockData from "../components/Stock/StockData";
 import CurrentPrice from "../components/Stock/CurrentPrice";
+import { RefreshInput } from "../components/Stock/RefreshInput";
 
 const StockDetails = styled.div`
 	margin: 0 auto;
@@ -22,20 +23,30 @@ const StockDetails = styled.div`
 const Stock = ({ match: { params } }) => {
 	const { symbol } = params;
 	const dispatch = useDispatch();
-	const MINUTE_MS = 360000;
+	// used high value so that API is not out of limit
+	const MINUTE_MS = 36000000;
+
+	const [refreshMin, setRefreshMins] = useState(
+		localStorage.getItem("minsVal") || MINUTE_MS
+	);
+	console.log(refreshMin);
+	const onChangeMins = val => {
+		const minsVal = val * 1000;
+		localStorage.setItem("minsVal", minsVal);
+	};
 	const fetchData = () => {
 		dispatch(fetchStockDetail(symbol));
 		dispatch(fetchStockChart(symbol));
 	};
-	//commenting as api reches limits soon
+
 	useEffect(() => {
 		fetchData();
-		// const timerId = setInterval(() => fetchData, MINUTE_MS);
+		// const timerId = setInterval(() => fetchData, refreshMin);
 		return () => {
 			dispatch(resetDetailsData());
 			// clearInterval(timerId);
 		};
-	}, []);
+	}, [refreshMin]);
 	setInterval(fetchData, MINUTE_MS);
 	const stockData = useSelector(getStockData);
 	const isStockDataFetched = useSelector(getIsStockDataFetched);
@@ -46,17 +57,18 @@ const Stock = ({ match: { params } }) => {
 	}
 	return (
 		<>
-			<>
-				<StockDetails>
-					{Object.keys(stockData).length ? (
+			<StockDetails>
+				<RefreshInput onChangeMins={onChangeMins} />
+				{Object.keys(stockData).length ? (
+					<>
 						<StockData stockData={stockData} symbol={symbol} />
-					) : (
-						<NoResultCard message="No stock details found in API" />
-					)}
-					<Graph />
-					<CurrentPrice />
-				</StockDetails>
-			</>
+					</>
+				) : (
+					<NoResultCard message="No stock details found" />
+				)}
+				<Graph />
+				<CurrentPrice />
+			</StockDetails>
 		</>
 	);
 };
