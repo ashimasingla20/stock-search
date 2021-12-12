@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { colors } from "@material-ui/core";
+import { colors } from "../../styleConstants/index";
 
 const ErrorContainer = styled.div`
-	color: ${colors.red};
+	color: ${colors.RED};
 	font-size: 14px;
 	padding-top: 20px;
 	text-align: center;

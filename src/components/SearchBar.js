@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { colors } from "../styleConstants";
 import { useHistory } from "react-router-dom";
 import SearchIcon from "@material-ui/icons/Search";
-import { ErrorCard } from "./ErrorCard";
+import { ErrorCard } from "./common/ErrorCard";
 import { fetchKeyword } from "../store/actions/search";
 import { getKeyword } from "../store/search";
 import { debounce } from "../utils/debounce";

@@ -7,8 +7,9 @@ import {
 } from "../store/actions/stockDetail";
 import { getStockData, getIsStockDataFetched } from "../store/stockDetail";
 import styled from "styled-components";
-import NoResultCard from "./NoResultCard";
-import { ErrorCard } from "./ErrorCard";
+import NoResultCard from "../components/common/NoResultCard";
+import { ErrorCard } from "../components/common/ErrorCard";
+import Loading from "../components/common/Loader";
 
 const StockDetails = styled.div`
 	margin: 0 auto;
@@ -29,10 +30,14 @@ const Stock = ({ match: { params } }) => {
 	}, []);
 	const stockData = useSelector(getStockData);
 	const isStockDataFetched = useSelector(getIsStockDataFetched);
-	console.log(isStockDataFetched);
-	if (!isStockDataFetched) return "fetching....";
+	// console.log(isStockDataFetched);
+	// return <Loading />;
+	if (!isStockDataFetched) return <Loading />;
 	console.log(stockData);
-	if (stockData.note) return <ErrorCard error={stockData.note} />;
+	console.log();
+	if (stockData.Note) {
+		return <ErrorCard error={stockData.Note} />;
+	}
 	return (
 		<>
 			{Object.keys(stockData).length ? (

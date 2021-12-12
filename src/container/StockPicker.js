@@ -1,9 +1,6 @@
-import { useDispatch } from "react-redux";
-import { SearchBar } from "./SearchBar";
-import { fetchKeyword } from "../store/actions/search";
+import { SearchBar } from "../components/SearchBar";
 import styled from "styled-components";
-import SearchResults from "./SearchResults";
-import { debounce } from "@material-ui/core";
+import SearchResults from "../components/SearchResults";
 
 const SectionConatiner = styled.section`
 	max-width: 750px;

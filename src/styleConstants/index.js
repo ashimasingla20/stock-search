@@ -4,7 +4,7 @@ export const colors = {
 	BLACK_SECONDARY: "rgba(0, 0, 0, 0.5)",
 	LIGHT_BLACK: "rgba(0, 0, 0, 0.14)",
 	DARK_BLACK: "rgba(0, 0, 0, 0.9)",
-	RED: "red"
+	RED: "#f60e3a"
 };
 export const fontWeight = {
 	BOLD: "bold",
