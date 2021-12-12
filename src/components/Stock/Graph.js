@@ -1,38 +1,48 @@
 import { useState } from "react";
 import { getIsChartDataFetched, getChartData } from "../../store/stockDetail";
 import { useSelector } from "react-redux";
+import Chart from "react-google-charts";
+import Loading from "../common/Loader";
+import styled from "styled-components";
+
+const GraphContainer = styled.div`
+	width: 100%;
+	margin: 30px 0;
+`;
 
 const Graph = () => {
-	// since variables might change later in API hence keeping in const variable instead of directly using it.
-	const DAILY_DATA = "Time Series (60min)";
-	const OPEN = "1. open";
-	const [stockChartXaxis, setStockChartXaxis] = useState([]);
-	const [stockChartYaxis, setStockChartYaxis] = useState([]);
-	const [obj, setObj] = useState({});
-
 	const isChartDetailsFetched = useSelector(getIsChartDataFetched);
 	const chartData = useSelector(getChartData);
-	console.log(chartData);
-	let stockChartXValues = [];
-	let stockChartYValues = [];
-	let count = 0;
-	for (let key in chartData[DAILY_DATA] && count < 5) {
-		stockChartXValues.push(key);
-		console.log(stockChartXValues);
-		// setStockChartXaxis(...stockChartXaxis, key);
-		// console.log(chartData[DAILY_DATA]);
-		stockChartYValues.push(chartData[DAILY_DATA][key][OPEN]);
-		count++;
+	if (!isChartDetailsFetched) return <Loading />;
+	const xData = chartData["x"];
+	const yData = chartData["y"];
+	console.log(xData);
+	console.log(yData);
+	let arr = [["time", "val"]];
+	for (let i = 0; i < xData.length; i++) {
+		arr.push([xData[i], Number(yData[i])]);
 	}
-	// console.log(stockChartXaxis);
-	console.log(stockChartXValues);
-	// const updatedVal = [...stockChartXaxis, ...stockChartXValues];
-	// setStockChartXaxis(updatedVal);
-	// let stockChartXValuesCopy = stockChartXValues.slice(20);
-	// setObj({
-	// 	stockChartXaxis: stockChartXValuesCopy
-	// });
-	// console.log(stockChartYValues);
-	return <div>Graph</div>;
+
+	return (
+		<GraphContainer>
+			<h3>GRAPH FOR TIME VS 1. OPEN</h3>
+			<Chart
+				width={"750px"}
+				height={"400px"}
+				chartType="LineChart"
+				loader={<div>Loading Chart</div>}
+				data={arr}
+				options={{
+					hAxis: {
+						title: "Time"
+					},
+					vAxis: {
+						title: "1.Open"
+					}
+				}}
+				rootProps={{ "data-testid": "1" }}
+			/>
+		</GraphContainer>
+	);
 };
 export default Graph;

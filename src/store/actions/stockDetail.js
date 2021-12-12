@@ -1,5 +1,6 @@
 import { stockDetails } from "../constants";
 import getData from "../../utils/fetchAPI";
+import hardCodeData from "./hardCodedData";
 
 export const fetchStockDetail = symbol => (dispatch, getStore) => {
 	const store = getStore();
@@ -20,21 +21,49 @@ export const fetchStockDetail = symbol => (dispatch, getStore) => {
 };
 
 export const fetchStockChart = (symbol, interval) => (dispatch, getStore) => {
-	const store = getStore();
 	dispatch({
 		type: stockDetails.STOCK_CHART_FETCHING,
 		payload: symbol
 	});
-
 	getData("query", {
-		function: "TIME_SERIES_INTRADAY",
+		function: "TIME_SERIES_DAILY_ADJUSTED",
 		symbol,
 		interval: interval
 	}).then(data => {
-		console.log(data);
+		// console.log(data);
+		const DAILY_DATA = "Time Series (Daily)";
+		const OPEN = "1. open";
+		let stockChartXValues = [];
+		let stockChartYValues = [];
+		let count = 0;
+		console.log(data[DAILY_DATA]);
+		// if (!data || !data[DAILY_DATA]) {
+		// 	console.log("in error");
+		// 	dispatch({
+		// 		type: stockDetails.STOCK_CHART_ERROR,
+		// 		error:
+		// 			"'Thank you for using Alpha Vantage! Our standard AP…would like to target a higher API call frequency.'"
+		// 	});
+		// }
+		let keys = Object.keys(data[DAILY_DATA]);
+		console.log(data[DAILY_DATA][keys[0]]);
+		dispatch({
+			type: stockDetails.CURRENT_DATA,
+			payload: { data: data[DAILY_DATA][keys[0]] }
+		});
+		for (let key in data[DAILY_DATA]) {
+			stockChartXValues.push(key);
+			stockChartYValues.push(data[DAILY_DATA][key][OPEN]);
+			count++;
+		}
+		let dataObj = {
+			x: stockChartXValues,
+			y: stockChartYValues
+		};
+		// console.log(dataObj);
 		dispatch({
 			type: stockDetails.STOCK_CHART_FETCHED,
-			payload: { data, symbol }
+			payload: { dataObj, symbol }
 		});
 	});
 };

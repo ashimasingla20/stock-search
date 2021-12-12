@@ -12,6 +12,7 @@ import { ErrorCard } from "../components/common/ErrorCard";
 import Loading from "../components/common/Loader";
 import Graph from "../components/Stock/Graph";
 import StockData from "../components/Stock/StockData";
+import CurrentPrice from "../components/Stock/CurrentPrice";
 
 const StockDetails = styled.div`
 	margin: 0 auto;
@@ -27,12 +28,13 @@ const Stock = ({ match: { params } }) => {
 		dispatch(fetchStockDetail(symbol));
 		dispatch(fetchStockChart(symbol, "60min"));
 	};
+	//commenting as api reches limits soon
 	useEffect(() => {
 		fetchData();
-		const timerId = setInterval(() => fetchData, MINUTE_MS);
+		// const timerId = setInterval(() => fetchData, MINUTE_MS);
 		return () => {
 			dispatch(resetDetailsData());
-			clearInterval(timerId);
+			// clearInterval(timerId);
 		};
 	}, []);
 	setInterval(fetchData, MINUTE_MS);
@@ -40,9 +42,9 @@ const Stock = ({ match: { params } }) => {
 	const isStockDataFetched = useSelector(getIsStockDataFetched);
 
 	if (!isStockDataFetched) return <Loading />;
-	if (stockData.Note) {
-		return <ErrorCard error={stockData.Note} />;
-	}
+	// if (stockData.Note) {
+	// 	return <ErrorCard error={stockData.Note} />;
+	// }
 	return (
 		<>
 			{Object.keys(stockData).length ? (
@@ -50,6 +52,7 @@ const Stock = ({ match: { params } }) => {
 					<StockDetails>
 						<StockData stockData={stockData} symbol={symbol} />
 						<Graph />
+						<CurrentPrice />
 					</StockDetails>
 				</>
 			) : (
