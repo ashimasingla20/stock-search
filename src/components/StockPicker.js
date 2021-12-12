@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { SearchBar } from "./SearchBar";
 import { fetchKeyword } from "../store/actions/search";
+import { getKeyword } from "../store/search";
 import styled from "styled-components";
 import SearchResults from "./SearchResults";
 
@@ -12,7 +13,8 @@ const SectionConatiner = styled.section`
 
 function StockPicker() {
 	const dispatch = useDispatch();
-	const [val, setVal] = useState("");
+	const keywordVal = useSelector(getKeyword);
+	const [val, setVal] = useState(keywordVal);
 
 	function onChange(e) {
 		setVal(e.target.value);
@@ -21,7 +23,7 @@ function StockPicker() {
 	return (
 		<>
 			<section>
-				<h1 className="ExchangeRate-header">Stock Picker</h1>
+				<h1 className="StockPicker-header">Stock Picker</h1>
 			</section>
 			<SectionConatiner>
 				<SearchBar val={val} onChange={onChange} />

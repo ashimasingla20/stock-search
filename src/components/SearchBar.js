@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { fetchKeyword } from "../store/actions/search";
 import styled from "styled-components";
+import { colors } from "../styleConstants";
 
 const Input = styled.input`
 	margin: 0 auto;
@@ -10,15 +10,14 @@ const Input = styled.input`
 	font-size: 2em;
 	font-family: "Orbitron", sans-serif;
 	text-align: center;
-	color: rgb(0 0 0 / 50%);
-	border: 1px solid rgba(0, 0, 0, 0.3);
+	color: ${colors.BLACK_SECONDARY};
+	border: 1px solid ${colors.BLACK_PRIMARY};
 	padding: 20px;
 	/* border-radius: 8px; */
 	box-sizing: border-box;
 `;
 export function SearchBar({ onChange, val }) {
-	const dispatch = useDispatch();
-
+	// const val = useSelector(fetchKeyword);
 	return (
 		<form className="ExchangeRate-form">
 			<Input

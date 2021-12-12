@@ -1,6 +1,5 @@
 import { rates, searchStocks } from "../constants";
 import { getExchangeRates } from "../../api";
-import { getCurrencyCode, getSupportedCurrency } from "../rates";
 import getData from "../../utils/fetchAPI";
 
 // export const changeKeyword = amount => ({

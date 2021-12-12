@@ -22,10 +22,6 @@ export function searchReducer(state = initialState, action) {
 		}
 		case searchStocks.KEWORD_DATA_RESET:
 			return state;
-		// case rates.CURRENCY_CODE_CHANGED:
-		// 	return { ...state, currencyCode: action.payload };
-		// case rates.RATES_RECEIVED:
-		// 	return { ...state, currencyData: action.payload };
 		default:
 			return state;
 	}
