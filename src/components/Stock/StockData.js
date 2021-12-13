@@ -28,10 +28,6 @@ const params = [
 		tag: "Shs Outstand"
 	},
 	{
-		key: "SharesFloat",
-		tag: "Shs Float"
-	},
-	{
 		key: "52WeekHigh",
 		tag: "52 Wk High"
 	},
@@ -59,7 +55,7 @@ const StockData = ({ stockData, symbol }) => {
 					</tr>
 					{params.map((ele, index) => {
 						return (
-							<tr>
+							<tr key={`${ele.tag}-${ele.Name}`}>
 								<td>{ele.tag}</td>
 								<td>{stockData[ele.key]}</td>
 							</tr>
