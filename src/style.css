@@ -7,7 +7,6 @@ body {
 body {
 	color: rgb(0 0 0 / 50%);
 	font-family: "helvetica neue", sans-serif;
-	font-display: swap;
 	background-image: linear-gradient(
 		to bottom,
 		rgb(114, 114, 186),

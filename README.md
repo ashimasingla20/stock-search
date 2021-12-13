@@ -20,7 +20,7 @@ Acceptance Criteria:
 -   Used React Hooks and Redux for state mangement.
 -   Based on the user's input, the user gets a list of stock symbols and company
     names in a dropdown below the input field while typing in the search field (i.e.
-    AutoComplete).
+    AutoComplete) and Input is debounced.
 -   Show message if no results are found.
 -   User can click any of the items in list to get a detailed view of the selected stock.
 -   If user performs multiple search he should be able to navigate back and forward to show previous or next item.
