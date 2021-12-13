@@ -7,6 +7,7 @@ const initialState = {
 	symbol: "",
 	error: "",
 	currentData: [],
+	refreshTime: "360",
 	fetchingCurrentData: false
 };
 export function stockDetailReducer(state = initialState, action) {
@@ -43,6 +44,12 @@ export function stockDetailReducer(state = initialState, action) {
 		}
 		case stockDetails.STOCK_DATA_RESET:
 			return state;
+		case stockDetails.SET_REFRESH_TIME:
+			console.log(action.payload.refreshTime);
+			return {
+				...state,
+				refreshTime: action.payload.refreshTime
+			};
 		case stockDetails.CURRENT_DATA:
 			return {
 				...state,
@@ -62,3 +69,4 @@ export const getChartData = state => state.stockDetail.chartData;
 export const getIsCurrentDataFetched = state =>
 	state.stockDetail.fetchingCurrentData;
 export const getCurrentData = state => state.stockDetail.currentData;
+export const getRefreshTime = state => state.stockDetail.refreshTime;

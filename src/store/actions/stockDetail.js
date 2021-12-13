@@ -61,6 +61,15 @@ export const fetchStockChart = symbol => (dispatch, getStore) => {
 		});
 	});
 };
+
 export const resetDetailsData = () => ({
 	type: stockDetails.STOCK_DATA_RESET
 });
+
+export const setRefreshTime = (refreshTime = 360) => {
+	console.log(refreshTime);
+	return {
+		type: stockDetails.SET_REFRESH_TIME,
+		payload: { refreshTime }
+	};
+};
