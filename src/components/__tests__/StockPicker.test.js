@@ -15,7 +15,7 @@ test("renders title", () => {
 	const linkElement = screen.getByText(/Stock Picker/i);
 	expect(linkElement).toBeInTheDocument();
 });
-describe("Integration tests on Login component.", () => {
+describe("Tests on Stock Search component.", () => {
 	let container;
 
 	beforeEach(() => {

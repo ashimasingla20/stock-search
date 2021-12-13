@@ -34,6 +34,7 @@ Acceptance Criteria:
 Optimisation:
 
 -   Using Loadables for dynamic loading
+-   using Tree shaking
 -   Using debounce and callback
 -   Cross browser compatible(check on safari as well)
 
