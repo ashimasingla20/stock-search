@@ -2,6 +2,7 @@ import { useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { colors } from "../../styleConstants";
+import { setRefreshTime } from "../../store/actions/stockDetail";
 
 const Input = styled.input`
 	background: red;
@@ -26,9 +27,6 @@ const Form = styled.form`
 	display: flex;
 `;
 const Button = styled.button`
-	/* position: absolute; */
-	/* right: 0;
-	top: 10px; */
 	background: none;
 	border: 0;
 	cursor: pointer;
@@ -39,16 +37,16 @@ const Button = styled.button`
 	border-radius: 8px;
 `;
 
-export function RefreshInput({ onChangeMins, refreshMin }) {
-	// const debouncedFetchResults = useCallback(debounce(onChangeMins, 1000), []);
-	const [currentMin, setCurrentMin] = useState(refreshMin);
+export function RefreshInput() {
+	const dispatch = useDispatch();
+	const [currentMin, setCurrentMin] = useState(setRefreshTime);
 	const onChangeLocal = e => {
 		setCurrentMin(e.target.value);
 	};
 
 	const onSubmit = e => {
 		e.preventDefault();
-		onChangeMins(currentMin);
+		dispatch(setRefreshTime(currentMin));
 	};
 	return (
 		<Form className="ExchangeRate-form" onSubmit={onSubmit}>

@@ -53,9 +53,9 @@ const StockData = ({ stockData, symbol }) => {
 							Key stats
 						</td>
 					</tr>
-					{params.map((ele, index) => {
+					{params.map(ele => {
 						return (
-							<tr key={`${ele.tag}-${ele.Name}`}>
+							<tr key={`${ele.tag}-${stockData[ele.key]}`}>
 								<td>{ele.tag}</td>
 								<td>{stockData[ele.key]}</td>
 							</tr>

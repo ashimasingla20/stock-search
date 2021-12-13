@@ -31,6 +31,12 @@ Acceptance Criteria:
 -   All LightHouse Params are above 80
 -   ![alt text](https://user-images.githubusercontent.com/6905324/145756100-9a1ce6f9-7ea7-428d-a6f3-955543976a10.png)
 
+Optimisation:
+
+-   Using Loadables for dynamic loading
+-   Using debounce and callback
+-   Cross browser compatible(check on safari as well)
+
 ---
 
 This app was built using [Create React App](https://create-react-app.dev/).
