@@ -29,7 +29,6 @@ const Stock = ({ match: { params } }) => {
 	const [refreshMin, setRefreshMins] = useState(
 		localStorage.getItem("minsVal") || MINUTE_MS
 	);
-	console.log(refreshMin);
 	const onChangeMins = val => {
 		const minsVal = val * 1000;
 		localStorage.setItem("minsVal", minsVal);
@@ -41,10 +40,10 @@ const Stock = ({ match: { params } }) => {
 
 	useEffect(() => {
 		fetchData();
-		// const timerId = setInterval(() => fetchData, refreshMin);
+		const timerId = setInterval(() => fetchData, refreshMin);
 		return () => {
 			dispatch(resetDetailsData());
-			// clearInterval(timerId);
+			clearInterval(timerId);
 		};
 	}, [refreshMin]);
 	setInterval(fetchData, MINUTE_MS);

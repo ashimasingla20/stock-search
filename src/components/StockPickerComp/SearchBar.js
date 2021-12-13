@@ -45,7 +45,6 @@ export function SearchBar() {
 	const [val, setVal] = useState(keywordVal);
 	const dispatch = useDispatch();
 	function fetchResults(value) {
-		console.log("fetch api called");
 		dispatch(fetchKeyword(value));
 	}
 
@@ -54,7 +53,6 @@ export function SearchBar() {
 	const onChangeLocal = e => {
 		if (e.keycode == 13) {
 			e.preventDefault();
-			console.log("enter pressed");
 		}
 		setError("");
 		setVal(e.target.value);

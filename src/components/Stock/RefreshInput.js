@@ -6,7 +6,7 @@ import { colors } from "../../styleConstants";
 const Input = styled.input`
 	background: red;
 	margin: 0 auto;
-	width: 100%;
+	width: 85%;
 	background: none;
 	font-size: 1em;
 	font-family: "Orbitron", sans-serif;
@@ -23,16 +23,20 @@ const Form = styled.form`
 	padding-top: 20px;
 	max-width: 750px;
 	position: relative;
+	display: flex;
 `;
 const Button = styled.button`
-	position: absolute;
-	right: 0;
-	top: 50%;
+	/* position: absolute; */
+	/* right: 0;
+	top: 10px; */
 	background: none;
 	border: 0;
 	cursor: pointer;
 	display: flex;
 	align-self: center;
+	border: 1px solid ${colors.LIGHT_BLACK};
+	padding: 20px;
+	border-radius: 8px;
 `;
 
 export function RefreshInput({ onChangeMins, refreshMin }) {
