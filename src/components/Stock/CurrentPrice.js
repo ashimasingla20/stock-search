@@ -7,7 +7,7 @@ const CurrentPriceContainer = styled.div`
 	margin-bottom: 70px;
 `;
 
-const CurrentPrice = ({}) => {
+const CurrentPrice = () => {
 	const isFetched = useSelector(getIsChartDataFetched);
 	const currentData = useSelector(getCurrentData);
 	if (!isFetched) return <Loading />;
@@ -31,13 +31,13 @@ const CurrentPrice = ({}) => {
 };
 const getTableRows = xValues => {
 	return xValues.map(element => {
-		return <th>{element}</th>;
+		return <th key={`${element}`}>{element}</th>;
 	});
 };
 
 const getTableColumns = yValues => {
-	return yValues.map(element => {
-		return <td>{element}</td>;
+	return yValues.map((element, index) => {
+		return <td key={`${element}-${index}`}>{element}</td>;
 	});
 };
 export default CurrentPrice;

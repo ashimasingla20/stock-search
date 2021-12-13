@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
 	fetchStockDetail,
@@ -13,7 +13,7 @@ import Loading from "../components/common/Loader";
 import Graph from "../components/Stock/Graph";
 import StockData from "../components/Stock/StockData";
 import CurrentPrice from "../components/Stock/CurrentPrice";
-import { RefreshInput } from "../components/Stock/RefreshInput";
+// import { RefreshInput } from "../components/Stock/RefreshInput";
 
 const StockDetails = styled.div`
 	margin: 0 auto;
@@ -25,14 +25,16 @@ const Stock = ({ match: { params } }) => {
 	const dispatch = useDispatch();
 	// used high value so that API is not out of limit
 	const MINUTE_MS = 36000000;
+	// let localStorageVal = localStorage.getItem("minsVal")
+	// 	? localStorage.getItem("minsVal")
+	// 	: MINUTE_MS;
+	// const [refreshMin, setRefreshMins] = useState(localStorageVal);
+	// const onChangeMins = val => {
+	// 	const minsVal = val * 1000;
+	// 	setRefreshMins(minsVal);
+	// 	localStorage.setItem("minsVal", minsVal);
+	// };
 
-	const [refreshMin, setRefreshMins] = useState(
-		localStorage.getItem("minsVal") || MINUTE_MS
-	);
-	const onChangeMins = val => {
-		const minsVal = val * 1000;
-		localStorage.setItem("minsVal", minsVal);
-	};
 	const fetchData = () => {
 		dispatch(fetchStockDetail(symbol));
 		dispatch(fetchStockChart(symbol));
@@ -40,13 +42,13 @@ const Stock = ({ match: { params } }) => {
 
 	useEffect(() => {
 		fetchData();
-		const timerId = setInterval(() => fetchData, refreshMin);
+		const timerId = setInterval(() => fetchData, MINUTE_MS);
 		return () => {
 			dispatch(resetDetailsData());
 			clearInterval(timerId);
 		};
-	}, [refreshMin]);
-	setInterval(fetchData, MINUTE_MS);
+	}, [MINUTE_MS]);
+	// setInterval(fetchData, MINUTE_MS);
 	const stockData = useSelector(getStockData);
 	const isStockDataFetched = useSelector(getIsStockDataFetched);
 
@@ -57,10 +59,10 @@ const Stock = ({ match: { params } }) => {
 	return (
 		<>
 			<StockDetails>
-				<RefreshInput onChangeMins={onChangeMins} />
 				{Object.keys(stockData).length ? (
 					<>
 						<StockData stockData={stockData} symbol={symbol} />
+						{/* <RefreshInput onChangeMins={onChangeMins} /> */}
 					</>
 				) : (
 					<NoResultCard message="No stock details found" />
