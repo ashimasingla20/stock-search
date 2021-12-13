@@ -1,4 +1,4 @@
-# Currency Exchange Calculator
+# STOCK PICKER
 
 A simple stock Picker which has autocomplete to show data and we can view information of a particular stock which is refreshed after a particular time.
 
@@ -27,7 +27,7 @@ Acceptance Criteria:
 -   If the user clicks enter or search button without autocomplete selection it should show the stock details if the symbol exist else show stock not found message.
 -   Stock price chart for the day using Google CHART js.
 -   Hoisted on https://stock-info20.herokuapp.com/
--   <img width="1440" alt="Web-vitals" src="https://user-images.githubusercontent.com/6905324/145756100-9a1ce6f9-7ea7-428d-a6f3-955543976a10.png">
+-   All web Vitals above 80
 -   ![alt text](https://user-images.githubusercontent.com/6905324/145756100-9a1ce6f9-7ea7-428d-a6f3-955543976a10.png)
 
 ---
