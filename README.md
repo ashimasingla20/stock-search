@@ -28,7 +28,7 @@ Acceptance Criteria:
 -   If the user clicks enter or search button without autocomplete selection it should show the stock details if the symbol exist else show stock not found message.
 -   Stock price chart for the day using Google CHART js.
 -   Hoisted on https://stock-info20.herokuapp.com/
--   All web Vitals above 80
+-   All LightHouse Params are above 80
 -   ![alt text](https://user-images.githubusercontent.com/6905324/145756100-9a1ce6f9-7ea7-428d-a6f3-955543976a10.png)
 
 ---
