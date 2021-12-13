@@ -1,4 +1,4 @@
-# Currency Exchange Calculator
+# STOCK PICKER
 
 A simple stock Picker which has autocomplete to show data and we can view information of a particular stock which is refreshed after a particular time.
 
