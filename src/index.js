@@ -7,8 +7,8 @@ import { store } from "./store/store.js";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 //loadable components
-const StockPicker = loadable(() => import("./components/StockPicker"));
-const Stock = loadable(() => import("./components/Stock"));
+const StockPicker = loadable(() => import("./container/StockPicker"));
+const Stock = loadable(() => import("./container/Stock"));
 
 ReactDOM.render(
 	<Provider store={store}>
